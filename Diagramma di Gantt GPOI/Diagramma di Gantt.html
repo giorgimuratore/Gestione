@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Diagramma di Gantt GPOI</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			background: #ccc;
+		}
+		.container {
+			width: 80%;
+			margin: 0 auto;
+		}
+		/* custom class */
+		.gantt .bar-milestone .bar {
+			fill: tomato;
+		}
+	</style>
+	<link rel="stylesheet" href="dist/frappe-gantt.css" />
+	<script src="dist/frappe-gantt.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Diagramma di Gantt prog. Turismo</h2>
+		<div class="gantt-target"></div>
+	</div>
+	<script>
+		var tasks = [
+			{
+				start: '2020-04-19',
+				end: '2020-04-30',
+				name: 'Pianificazione, analisi e specifiche del progetto',
+				id: "Task 0",
+				progress: 100
+			},
+			{
+				start: '2020-05-03',
+				end: '2020-05-16',
+				name: 'P0',
+				id: "Task 1",
+				progress: 100,
+				dependencies: 'Task 0'
+			},
+			{
+				start: '2020-05-19',
+				end: '2020-06-18',
+				name: 'P1 & P2',
+				id: "Task 2",
+				progress: 100,
+				dependencies: 'Task 1'
+			},
+			{
+				start: '2020-06-21',
+				end: '2020-07-02',
+				name: 'P3',
+				id: "Task 3",
+				progress: 100,
+				dependencies: 'Task 2'
+			},
+			{
+				start: '2020-06-10',
+				end: '2020-07-23',
+				name: 'Test e risoluzione eventuali errori',
+				id: "Task 4",
+				progress: 100,
+				dependencies: 'Task 2'
+			},
+			{
+				start: '2020-07-26',
+				end: '2020-07-30',
+				name: 'Consegna progetto',
+				id: "Task 5",
+				progress: 100,
+				dependencies: 'Task 4',
+				custom_class: 'bar-milestone'
+			}
+		]
+		var gantt_chart = new Gantt(".gantt-target", tasks, {
+			on_click: function (task) {
+				console.log(task);
+			},
+			on_date_change: function(task, start, end) {
+				console.log(task, start, end);
+			},
+			on_progress_change: function(task, progress) {
+				console.log(task, progress);
+			},
+			on_view_change: function(mode) {
+				console.log(mode);
+			},
+			view_mode: 'Month',
+			language: 'en'
+		});
+		console.log(gantt_chart);
+	</script>
+</body>
+</html>
